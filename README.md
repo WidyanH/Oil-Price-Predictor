@@ -1,9 +1,9 @@
-Members:
-Ali Javaid - Project manager and code architecture design
-Widyan Hussien  - coder
-Jamaima Syed - github set up
-Alejandro Vega - researcher
-Angela Marie Abrea  - coder
-Salma Abbady - coder
+## Members:
+- Ali Javaid - Project manager and Code Architecture Design
+- Widyan Hussien  - Coder
+- Jamaima Syed - GitHub Set Up
+- Alejandro Vega - Researcher
+- Angela Marie Abrea  - Coder
+- Salma Abbady - Coder
 
 04/11/2025
