@@ -4,6 +4,6 @@ Widyan Hussien  - coder
 Jamaima Syed - github set up
 Alejandro Vega - researcher
 Angela Marie Abrea  - coder
-Salma Abbady - absent
+Salma Abbady - coder
 
 04/11/2025
