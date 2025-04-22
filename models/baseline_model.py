@@ -1,20 +1,22 @@
-# models/baseline_model.py
 
 from utils.metrics import calculate_rmse, calculate_mae
 
 def run_naive_baseline(df):
     """
     Assumes next value equals current value (naive prediction).
-    Uses 'Close' column for price if available.
+    Accepts either 'Close' or 'Price' column for price data.
     """
     price_col = None
     for col in df.columns:
-        if col.lower() == 'close':
+        col_lower = col.lower()
+        if col_lower in ['close', 'price', 'closing price', 'adj close']:
+
             price_col = col
             break
 
     if not price_col:
-        raise ValueError("Dataset must contain a 'Close' column for price.")
+        raise ValueError("Dataset must contain a 'Close' or 'Price' column for price.")
+
 
     actual = df[price_col].values[1:]
     predicted = df[price_col].values[:-1]
@@ -22,4 +24,5 @@ def run_naive_baseline(df):
     rmse = calculate_rmse(actual, predicted)
     mae = calculate_mae(actual, predicted)
 
-    return rmse, mae
+    return rmse, mae, actual, predicted
+

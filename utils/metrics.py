@@ -1,9 +1,10 @@
 # utils/metrics.py
 
+from sklearn.metrics import mean_squared_error, mean_absolute_error
 import numpy as np
 
-def calculate_rmse(actual, predicted):
-    return np.sqrt(np.mean((np.array(actual) - np.array(predicted)) ** 2))
+def calculate_rmse(y_true, y_pred):
+    return np.sqrt(mean_squared_error(y_true, y_pred))
 
-def calculate_mae(actual, predicted):
-    return np.mean(np.abs(np.array(actual) - np.array(predicted)))
+def calculate_mae(y_true, y_pred):
+    return mean_absolute_error(y_true, y_pred)
