@@ -2,6 +2,7 @@ from models.baseline_model import run_naive_baseline
 from models.regression_model import run_linear_regression
 from models.random_forest_model import run_random_forest
 
+
 class PredictionController:
     def __init__(self):
         self.data = None
@@ -17,6 +18,7 @@ class PredictionController:
             return rmse, mae, y_test, y_pred
         else:
             return 0.0, 0.0, None, None
+
 
     def run_linear_regression_model(self):
         if self.data is not None:

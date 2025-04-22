@@ -4,6 +4,7 @@ from controllers.prediction_controller import PredictionController
 from utils.visualizations import plot_predictions, plot_volume_chart, plot_comparison_table
 
 
+
 class AppUI:
     def __init__(self, root):
         self.root = root
@@ -158,3 +159,4 @@ if __name__ == "__main__":
     root = tk.Tk()
     app = AppUI(root)
     root.mainloop()
+

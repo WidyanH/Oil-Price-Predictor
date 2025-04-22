@@ -3,6 +3,7 @@ from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 import tkinter as tk
 from tkinter import ttk
 
+
 def plot_predictions(root, actual, predicted):
     """
     Display actual vs predicted values in a Matplotlib chart embedded in Tkinter.
@@ -21,6 +22,7 @@ def plot_predictions(root, actual, predicted):
 
     fig.patch.set_facecolor('#f7f7f7')
     ax.set_facecolor('#ffffff')
+
 
     canvas = FigureCanvasTkAgg(fig, master=root)
     canvas.draw()
@@ -76,3 +78,4 @@ def plot_comparison_table(parent_frame, data):
 
     tree.pack(pady=5)
     return tree
+

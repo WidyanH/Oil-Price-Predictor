@@ -1,3 +1,4 @@
+
 from utils.metrics import calculate_rmse, calculate_mae
 
 def run_naive_baseline(df):
@@ -9,11 +10,13 @@ def run_naive_baseline(df):
     for col in df.columns:
         col_lower = col.lower()
         if col_lower in ['close', 'price', 'closing price', 'adj close']:
+
             price_col = col
             break
 
     if not price_col:
         raise ValueError("Dataset must contain a 'Close' or 'Price' column for price.")
+
 
     actual = df[price_col].values[1:]
     predicted = df[price_col].values[:-1]
@@ -22,3 +25,4 @@ def run_naive_baseline(df):
     mae = calculate_mae(actual, predicted)
 
     return rmse, mae, actual, predicted
+

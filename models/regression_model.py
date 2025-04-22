@@ -1,3 +1,4 @@
+
 import pandas as pd
 from sklearn.linear_model import LinearRegression
 from utils.metrics import calculate_rmse, calculate_mae
@@ -21,6 +22,7 @@ def run_linear_regression(df, n_lags=5):
 
     data = df[price_col].copy()
 
+
     # Create lag features
     for i in range(1, n_lags + 1):
         df[f'lag_{i}'] = data.shift(i)
@@ -30,6 +32,7 @@ def run_linear_regression(df, n_lags=5):
     # Features: lag_1 to lag_n
     X = df[[f'lag_{i}' for i in range(1, n_lags + 1)]]
     y = df[price_col]
+
 
     # Train/test split (80/20)
     split_index = int(len(df) * 0.8)
