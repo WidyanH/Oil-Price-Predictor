@@ -1,45 +1,39 @@
-<<<<<<< Updated upstream
-=======
-import pandas as pd
-from sklearn.linear_model import LinearRegression
+from sklearn.ensemble import RandomForestRegressor
 from utils.metrics import calculate_rmse, calculate_mae
+import pandas as pd
 
-def run_linear_regression(df, n_lags=5):
+def run_random_forest(df, n_lags=5):
     """
-    Uses previous 'n_lags' prices to predict the next price.
-    Accepts columns named 'Close', 'Price', or similar.
+    Train a Random Forest model on lagged closing prices and return predictions and metrics.
     """
 
-    # Try to locate the correct price column
+    # Find the appropriate column for price
     price_col = None
     for col in df.columns:
-        col_lower = col.lower()
-        if col_lower in ['close', 'price', 'adj close', 'closing price']:
+        if col.lower() in ['close', 'price', 'adj close']:
             price_col = col
             break
 
     if not price_col:
-        raise ValueError("Dataset must contain a column named 'Close', 'Price', or similar.")
-
-    data = df[price_col].copy()
+        raise ValueError("Dataset must contain a 'Close' or 'Price' column.")
 
     # Create lag features
+    data = df[price_col].copy()
     for i in range(1, n_lags + 1):
         df[f'lag_{i}'] = data.shift(i)
 
     df.dropna(inplace=True)
 
-    # Features: lag_1 to lag_n
     X = df[[f'lag_{i}' for i in range(1, n_lags + 1)]]
     y = df[price_col]
 
-    # Train/test split (80/20)
+    # Train/test split
     split_index = int(len(df) * 0.8)
     X_train, X_test = X[:split_index], X[split_index:]
     y_train, y_test = y[:split_index], y[split_index:]
 
     # Train model
-    model = LinearRegression()
+    model = RandomForestRegressor(n_estimators=100, random_state=42)
     model.fit(X_train, y_train)
 
     # Predict
@@ -50,4 +44,3 @@ def run_linear_regression(df, n_lags=5):
     mae = calculate_mae(y_test, y_pred)
 
     return rmse, mae, y_test, y_pred
->>>>>>> Stashed changes
