@@ -1,11 +1,10 @@
 # main.py
-from views.app_ui import AppUI
-import tkinter as tk
 
-def main():
+import tkinter as tk
+from views.app_ui import AppUI
+
+if __name__ == "__main__":
     root = tk.Tk()
     app = AppUI(root)
     root.mainloop()
 
-if __name__ == "__main__":
-    main()
