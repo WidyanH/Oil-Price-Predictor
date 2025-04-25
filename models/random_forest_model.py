@@ -2,9 +2,10 @@ from sklearn.ensemble import RandomForestRegressor
 from utils.metrics import calculate_rmse, calculate_mae
 import pandas as pd
 
-def run_random_forest(df, n_lags=5):
+def run_random_forest(df, inflation_df=None, n_lags=5):
     """
     Train a Random Forest model on lagged closing prices and return predictions and metrics.
+    Includes option for inflation rate
     """
 
     # Find the appropriate column for price
@@ -17,6 +18,12 @@ def run_random_forest(df, n_lags=5):
     if not price_col:
         raise ValueError("Dataset must contain a 'Close' or 'Price' column.")
 
+    # Inflation
+    if inflation_df is not None and 'Date' in df.columns:
+        df = pd.merge(df, inflation_df, on='Date', how='left')
+        df['Inflation'].fillna(method='ffill', inplace=True)
+        df['Inflation'].fillna(method='bfill', inplace=True)
+
     # Create lag features
     data = df[price_col].copy()
     for i in range(1, n_lags + 1):
@@ -24,7 +31,11 @@ def run_random_forest(df, n_lags=5):
 
     df.dropna(inplace=True)
 
-    X = df[[f'lag_{i}' for i in range(1, n_lags + 1)]]
+    feature_cols = [f'lag_{i}' for i in range(1, n_lags + 1)]
+    if 'Inflation' in df.columns:
+        feature_cols.append('Inflation')
+
+    X = df[feature_cols]
     y = df[price_col]
 
     # Train/test split
