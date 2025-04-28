@@ -1,6 +1,7 @@
-# utils/data_loader.py
-
 import pandas as pd
+
+def load_brent_data():
+    return pd.read_csv('data/processed/brent_cleaned.csv', parse_dates=['Date'])
 
 def load_csv(file_path):
     """
