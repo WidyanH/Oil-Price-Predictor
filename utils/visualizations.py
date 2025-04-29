@@ -4,55 +4,42 @@ import tkinter as tk
 from tkinter import ttk
 
 
-def plot_predictions(root, actual, predicted):
-    """
-    Display actual vs predicted values in a Matplotlib chart embedded in Tkinter.
-    """
-    fig, ax = plt.subplots(figsize=(8, 4))
+def plot_predictions(frame, y_true, y_pred):
+    fig, ax = plt.subplots(figsize=(12, 5))  # Wider figure
+    ax.plot(y_true, label='Actual', color="#007acc", linewidth=2)
+    ax.plot(y_pred, label='Predicted', color="#ff6600", linestyle='--', linewidth=2)
+    ax.set_title('Actual vs Predicted Prices', fontsize=16)
+    ax.set_xlabel('Time Steps', fontsize=13)
+    ax.set_ylabel('Price', fontsize=13)
+    ax.legend(fontsize=12)
+    ax.grid(True, linestyle="--", alpha=0.5)
 
-    # Styled plot
-    ax.plot(actual, label='Actual', color='#1f77b4', marker='o', linestyle='-')
-    ax.plot(predicted, label='Predicted', color='#ff7f0e', marker='x', linestyle='--')
+    plt.tight_layout()
 
-    ax.set_title("📈 Actual vs Predicted Prices", fontsize=14, fontweight='bold')
-    ax.set_xlabel("Time", fontsize=12)
-    ax.set_ylabel("Price", fontsize=12)
-    ax.legend()
-    ax.grid(True, linestyle='--', alpha=0.5)
-
-    fig.patch.set_facecolor('#f7f7f7')
-    ax.set_facecolor('#ffffff')
-
-
-    canvas = FigureCanvasTkAgg(fig, master=root)
+    canvas = FigureCanvasTkAgg(fig, master=frame)
     canvas.draw()
-    canvas.get_tk_widget().pack(pady=10)
+    canvas.get_tk_widget().pack()
 
     return canvas
 
 
-def plot_volume_chart(parent_frame, dates, volumes):
-    """
-    Display a bar chart of trading volume over time.
-    """
-    fig, ax = plt.subplots(figsize=(8, 3))
-
-    ax.bar(dates, volumes, color='#4caf50')
-    ax.set_title("📊 Trading Volume", fontsize=12, fontweight='bold')
-    ax.set_xlabel("Date")
-    ax.set_ylabel("Volume")
+def plot_volume_chart(frame, dates, volumes):
+    fig, ax = plt.subplots(figsize=(12, 4))  # Wider and clean
+    ax.bar(dates, volumes, color="#4caf50")
+    ax.set_title('Volume over Last 30 Days', fontsize=16)
+    ax.set_xlabel('Date', fontsize=13)
+    ax.set_ylabel('Volume', fontsize=13)
     ax.tick_params(axis='x', labelrotation=45)
-    ax.grid(axis='y', linestyle='--', alpha=0.5)
-    fig.tight_layout()
+    ax.grid(True, linestyle="--", alpha=0.5)
 
-    fig.patch.set_facecolor('#f7f7f7')
-    ax.set_facecolor('#ffffff')
+    plt.tight_layout()
 
-    canvas = FigureCanvasTkAgg(fig, master=parent_frame)
+    canvas = FigureCanvasTkAgg(fig, master=frame)
     canvas.draw()
-    canvas.get_tk_widget().pack(pady=5)
+    canvas.get_tk_widget().pack()
 
     return canvas
+
 
 
 def plot_comparison_table(parent_frame, data):
